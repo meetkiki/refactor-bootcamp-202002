@@ -27,4 +27,26 @@ public class FibonacciTest {
         Assert.assertEquals(2,fibonacci);
     }
 
+
+    @Test
+    public void should_return_3_when_calculate_given_position_is_4(){
+        int number = 4;
+        int fibonacci = CalculationUtils.fibonacci(number);
+        Assert.assertEquals(3,fibonacci);
+    }
+
+
+    @Test
+    public void should_return_5_when_calculate_given_position_is_5(){
+        int number = 5;
+        int fibonacci = CalculationUtils.fibonacci(number);
+        Assert.assertEquals(5,fibonacci);
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void should_throw_IllegalArgumentException_when_calculate_given_position_less_1(){
+        int number = 0;
+        CalculationUtils.fibonacci(number);
+    }
 }
