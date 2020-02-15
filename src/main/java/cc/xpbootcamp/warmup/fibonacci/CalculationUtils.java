@@ -8,7 +8,13 @@ public class CalculationUtils {
      * @return
      */
     public static int fibonacci(int number){
-        return 1;
+        if (number < 1){
+            throw new IllegalArgumentException("fibonacci cannot calculate data less than 1");
+        } else if (number == 1 || number == 2){
+            return 1;
+        } else {
+            return fibonacci(number - 1) + fibonacci(number - 2);
+        }
     }
 
 
