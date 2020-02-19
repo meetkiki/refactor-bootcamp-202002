@@ -1,4 +1,6 @@
-package cc.xpbootcamp.warmup.cashier;
+package cc.xpbootcamp.warmup.cashier.model;
+
+import cc.xpbootcamp.warmup.cashier.utils.DataUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -6,15 +8,16 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.COMMA;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.DISCOUNT_TAX_CN;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.MULTIPLY;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.SALES_TAX_CN;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.SPACE;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.TABS;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.TOTAL_AMOUNT_CN;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.ZERO;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COMMA;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.DISCOUNT_TAX_CN;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.MULTIPLY;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX_CN;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SPACE;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TABS;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT_CN;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.ZERO;
+
 
 public class Order {
     private String customerName;
@@ -86,7 +89,7 @@ public class Order {
     }
 
     public String generateDateString() {
-        return DataUtils.dateToString(localDate) + COMMA + DataUtils.dateToWeekCn(localDate);
+        return DataUtil.dateToString(localDate) + COMMA + DataUtil.dateToWeekCn(localDate);
     }
 
     public String generateItemDetail() {

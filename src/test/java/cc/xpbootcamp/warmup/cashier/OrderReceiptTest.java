@@ -1,5 +1,8 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.cashier.core.OrderReceipt;
+import cc.xpbootcamp.warmup.cashier.model.LineItem;
+import cc.xpbootcamp.warmup.cashier.model.Order;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

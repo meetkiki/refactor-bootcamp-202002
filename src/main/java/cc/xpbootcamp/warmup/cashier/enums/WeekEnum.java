@@ -1,4 +1,4 @@
-package cc.xpbootcamp.warmup.cashier;
+package cc.xpbootcamp.warmup.cashier.enums;
 
 import java.util.Arrays;
 

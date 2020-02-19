@@ -1,11 +1,12 @@
-package cc.xpbootcamp.warmup.cashier;
+package cc.xpbootcamp.warmup.cashier.model;
+
+import cc.xpbootcamp.warmup.cashier.enums.WeekEnum;
+import cc.xpbootcamp.warmup.cashier.utils.DataUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
-
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.DISCOUNT_TAX_CN;
 
 public class Discount {
 
@@ -20,7 +21,7 @@ public class Discount {
 
     public boolean hasDiscount(LocalDate curDate){
         if (Objects.nonNull(discountWeek)){
-            return DataUtils.determineWeek(discountWeek,curDate);
+            return DataUtil.determineWeek(discountWeek,curDate);
         }
         return Boolean.FALSE;
     }

@@ -1,10 +1,12 @@
-package cc.xpbootcamp.warmup.cashier;
+package cc.xpbootcamp.warmup.cashier.core;
 
 
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.INVOICE;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.SALES_TAX;
-import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.TOTAL_AMOUNT;
+import cc.xpbootcamp.warmup.cashier.model.Order;
+
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.INVOICE;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,

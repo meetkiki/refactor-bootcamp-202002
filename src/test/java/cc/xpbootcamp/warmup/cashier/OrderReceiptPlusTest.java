@@ -1,12 +1,17 @@
 package cc.xpbootcamp.warmup.cashier;
 
+import cc.xpbootcamp.warmup.cashier.core.OrderReceiptPlus;
+import cc.xpbootcamp.warmup.cashier.model.Discount;
+import cc.xpbootcamp.warmup.cashier.model.LineItem;
+import cc.xpbootcamp.warmup.cashier.model.Order;
+import cc.xpbootcamp.warmup.cashier.utils.DataUtil;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cc.xpbootcamp.warmup.cashier.WeekEnum.WEDNESDAY;
+import static cc.xpbootcamp.warmup.cashier.enums.WeekEnum.WEDNESDAY;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
@@ -19,7 +24,7 @@ public class OrderReceiptPlusTest {
             add(new LineItem("巧克力", 21.5, 2));
             add(new LineItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtils.strToDate("2020年02月17日"), lineItems);
+        Order order = new Order(DataUtil.strToDate("2020年02月17日"), lineItems);
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 
         String output = receipt.printReceipt();
@@ -38,7 +43,7 @@ public class OrderReceiptPlusTest {
             add(new LineItem("巧克力", 21.5, 2));
             add(new LineItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtils.strToDate("2020年02月19日"), lineItems)
+        Order order = new Order(DataUtil.strToDate("2020年02月19日"), lineItems)
                 .discount(new Discount(WEDNESDAY, new BigDecimal("0.98")));
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 
@@ -60,7 +65,7 @@ public class OrderReceiptPlusTest {
             add(new LineItem("巧克力", 21.5, 2));
             add(new LineItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtils.strToDate("2020年02月19日"), lineItems)
+        Order order = new Order(DataUtil.strToDate("2020年02月19日"), lineItems)
                 .discount(new Discount(WEDNESDAY, new BigDecimal("1.00")));
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 

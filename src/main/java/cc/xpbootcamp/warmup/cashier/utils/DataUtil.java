@@ -1,10 +1,12 @@
-package cc.xpbootcamp.warmup.cashier;
+package cc.xpbootcamp.warmup.cashier.utils;
+
+import cc.xpbootcamp.warmup.cashier.enums.WeekEnum;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
-public class DataUtils {
+public class DataUtil {
 
     static final String dataFormat = "yyyy年MM月dd日";
 
