@@ -52,4 +52,25 @@ public class OrderReceiptPlusTest {
         assertThat(output, containsString("总价：57.13"));
     }
 
+
+
+    @Test
+    public void shouldPrintCustomerInformationOnOrderDiscountNoAmount() {
+        List<LineItem> lineItems = new ArrayList<LineItem>() {{
+            add(new LineItem("巧克力", 21.5, 2));
+            add(new LineItem("小白菜", 10.0, 1));
+        }};
+        Order order = new Order(DataUtils.strToDate("2020年02月19日"), lineItems)
+                .discount(new Discount(WEDNESDAY, new BigDecimal("1.00")));
+        OrderReceiptPlus receipt = new OrderReceiptPlus(order);
+
+        String output = receipt.printReceipt();
+
+        assertThat(output, containsString("老王超市，值得信赖"));
+        assertThat(output, containsString("巧克力，21.50 x 2，43.00"));
+        assertThat(output, containsString("小白菜，10.00 x 1，10.00"));
+        assertThat(output, containsString("税额：5.30"));
+        assertThat(output, containsString("折扣：0.00"));
+        assertThat(output, containsString("总价：58.30"));
+    }
 }
