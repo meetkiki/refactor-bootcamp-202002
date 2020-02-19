@@ -16,7 +16,6 @@ class OrderReceiptTest {
 
         String output = receipt.printReceipt();
 
-
         assertThat(output, containsString("Mr X"));
         assertThat(output, containsString("Chicago, 60601"));
     }

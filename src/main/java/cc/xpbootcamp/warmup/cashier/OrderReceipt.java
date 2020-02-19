@@ -1,11 +1,10 @@
 package cc.xpbootcamp.warmup.cashier;
 
 
-import static cc.xpbootcamp.warmup.cashier.Character.INVOICE;
-import static cc.xpbootcamp.warmup.cashier.Character.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.Character.SALES_TAX;
-import static cc.xpbootcamp.warmup.cashier.Character.TABS;
-import static cc.xpbootcamp.warmup.cashier.Character.TOTAL_AMOUNT;
+import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.INVOICE;
+import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.LINE_BREAK;
+import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.SALES_TAX;
+import static cc.xpbootcamp.warmup.cashier.SpecialCharacter.TOTAL_AMOUNT;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
@@ -22,7 +21,7 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        return INVOICE +
+        return INVOICE + LINE_BREAK +
                 // customer information
                 order.getCustomerName() +
                 order.getCustomerAddress() +
