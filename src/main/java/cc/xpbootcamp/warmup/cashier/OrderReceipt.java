@@ -1,6 +1,11 @@
 package cc.xpbootcamp.warmup.cashier;
 
-import java.math.BigDecimal;
+
+import static cc.xpbootcamp.warmup.cashier.Character.INVOICE;
+import static cc.xpbootcamp.warmup.cashier.Character.LINE_BREAK;
+import static cc.xpbootcamp.warmup.cashier.Character.SALES_TAX;
+import static cc.xpbootcamp.warmup.cashier.Character.TABS;
+import static cc.xpbootcamp.warmup.cashier.Character.TOTAL_AMOUNT;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
@@ -9,9 +14,6 @@ import java.math.BigDecimal;
  * total sales tax) and prints it.
  */
 public class OrderReceipt {
-    private static final String ZERO = "0.0";
-    private static final String TABS = "\t";
-    private static final String LINE_BREAK = "\n";
 
     private Order order;
 
@@ -20,41 +22,15 @@ public class OrderReceipt {
     }
 
     public String printReceipt() {
-        StringBuilder output = new StringBuilder();
-        // print headers
-        output.append("======Printing Orders======" + LINE_BREAK);
-        // print date, bill no, customer name
-        // output.append("Date - " + order.getDate();
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
-        // output.append(order.getCustomerLoyaltyNumber());
-
-        // prints lineItems
-        BigDecimal totalSalesTax = new BigDecimal(ZERO);
-        BigDecimal totalAmount = new BigDecimal(ZERO);
-        for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append(TABS);
-            output.append(lineItem.getPrice());
-            output.append(TABS);
-            output.append(lineItem.getQuantity());
-            output.append(TABS);
-            output.append(lineItem.totalAmount());
-            output.append(LINE_BREAK);
-
-            // calculate sales tax @ rate of 10%
-            BigDecimal salesTax = lineItem.totalAmount().divide(BigDecimal.TEN, BigDecimal.ROUND_HALF_UP);
-            totalSalesTax = totalSalesTax.add(salesTax);
-
-            // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            totalAmount = totalAmount.add(lineItem.totalAmount().add(salesTax));
-        }
-
-        // prints the state tax
-        output.append("Sales Tax").append(TABS).append(totalSalesTax.toString());
-
-        // print total amount
-        output.append("Total Amount").append(TABS).append(totalAmount.toString());
-        return output.toString();
+        return INVOICE +
+                // customer information
+                order.getCustomerName() +
+                order.getCustomerAddress() +
+                // prints item
+                order.generateItemDetail() +
+                // prints the state tax
+                SALES_TAX + order.getTotalSalesTax() +
+                // print total amounts
+                TOTAL_AMOUNT + order.getTotalAmount();
     }
 }
