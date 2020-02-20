@@ -1,21 +1,12 @@
 package cc.xpbootcamp.warmup.cashier.model;
 
-import cc.xpbootcamp.warmup.cashier.utils.DataUtil;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COMMA;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.DISCOUNT_TAX_CN;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.MULTIPLY;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX_CN;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SPACE;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TABS;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT_CN;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.ZERO;
 
 
@@ -29,6 +20,7 @@ public class Order {
 
     private BigDecimal totalSalesTax;
     private BigDecimal totalAmount;
+    private BigDecimal discountAmount;
 
     public Order(List<LineItem> lineItemList) {
         this(LocalDate.now(), lineItemList);
@@ -38,7 +30,7 @@ public class Order {
         this(localDate, null, null, lineItemList);
     }
 
-    public Order( String customerName, String customerAddress,List<LineItem> lineItemList) {
+    public Order(String customerName, String customerAddress, List<LineItem> lineItemList) {
         this(LocalDate.now(), customerName, customerAddress, lineItemList);
     }
 
@@ -53,9 +45,16 @@ public class Order {
         this.calculateOrderAmount(lineItemList);
     }
 
-    public Order discount(Discount discount){
+    public Order discount(Discount discount) {
         this.discount = discount;
+        this.discountCalculate();
         return this;
+    }
+
+    public void discountCalculate() {
+        if (Objects.nonNull(discount) && discount.hasDiscount(localDate)) {
+            this.discountAmount = discount.discountAmount(localDate, totalAmount);
+        }
     }
 
     private void calculateOrderAmount(List<LineItem> lineItemList) {
@@ -85,62 +84,18 @@ public class Order {
     }
 
     public BigDecimal getTotalAmount() {
-        return totalAmount;
+        return Objects.isNull(this.discountAmount) ? this.totalAmount : this.totalAmount.subtract(this.discountAmount);
     }
 
-    public String generateDateString() {
-        return DataUtil.dateToString(localDate) + COMMA + DataUtil.dateToWeekCn(localDate);
+
+
+
+
+    public LocalDate getLocalDate() {
+        return localDate;
     }
 
-    public String generateItemDetail() {
-        StringBuilder result = new StringBuilder();
-        for (LineItem lineItem : lineItemList) {
-            result.append(lineItem.getDescription())
-                    .append(TABS)
-                    .append(lineItem.getPrice())
-                    .append(TABS)
-                    .append(lineItem.getQuantity())
-                    .append(TABS)
-                    .append(lineItem.totalAmount())
-                    .append(LINE_BREAK);
-        }
-        return result.toString();
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
     }
-
-    public String generateItemDetailPlus() {
-        StringBuilder result = new StringBuilder();
-        for (LineItem lineItem : lineItemList) {
-            result.append(lineItem.getDescription()).append(COMMA)
-                    .append(lineItem.getPrice().setScale(2, RoundingMode.HALF_UP))
-                    .append(SPACE).append(MULTIPLY).append(SPACE)
-                    .append(lineItem.getQuantity()).append(COMMA)
-                    .append(lineItem.totalAmount().setScale(2, RoundingMode.HALF_UP))
-                    .append(LINE_BREAK);
-        }
-        return result.toString();
-    }
-
-    public String generateTotalDetail() {
-        StringBuilder result = new StringBuilder();
-        // prints the state tax
-        result.append(SALES_TAX_CN).append(getTotalSalesTax());
-        // print discount
-        result.append(discountCalculate());
-        // print total amounts
-        result.append(TOTAL_AMOUNT_CN).append(getTotalAmount());
-        return result.toString();
-    }
-
-    private String discountCalculate() {
-        StringBuilder result = new StringBuilder();
-        if (Objects.nonNull(discount) && discount.hasDiscount(localDate)) {
-            BigDecimal discountAmount = discount.discountAmount(localDate, totalAmount);
-            result.append(DISCOUNT_TAX_CN)
-                    .append(discountAmount)
-                    .append(LINE_BREAK);
-            this.totalAmount = this.totalAmount.subtract(discountAmount);
-        }
-        return result.toString();
-    }
-
 }

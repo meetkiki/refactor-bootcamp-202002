@@ -12,14 +12,14 @@ public enum  WeekEnum {
     SATURDAY("星期六"),
     SUNDAY("星期日");
 
-    String week_cn;
+    String weekCn;
 
     WeekEnum(String weekCn) {
-        this.week_cn = weekCn;
+        this.weekCn = weekCn;
     }
 
     public String getWeekCn() {
-        return week_cn;
+        return weekCn;
     }
 
     public static WeekEnum weekToEnum(String week){

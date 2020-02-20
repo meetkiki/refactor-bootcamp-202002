@@ -1,11 +1,13 @@
 package cc.xpbootcamp.warmup.cashier.core;
 
 
+import cc.xpbootcamp.warmup.cashier.model.LineItem;
 import cc.xpbootcamp.warmup.cashier.model.Order;
 
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.INVOICE;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TABS;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT;
 
 /**
@@ -28,10 +30,25 @@ public class OrderReceipt {
                 order.getCustomerName() +
                 order.getCustomerAddress() +
                 // prints item
-                order.generateItemDetail() +
+                generateItemDetail() +
                 // prints the state tax
                 SALES_TAX + order.getTotalSalesTax() +
                 // print total amounts
                 TOTAL_AMOUNT + order.getTotalAmount();
+    }
+
+    public String generateItemDetail() {
+        StringBuilder result = new StringBuilder();
+        for (LineItem lineItem : order.getLineItems()) {
+            result.append(lineItem.getDescription())
+                    .append(TABS)
+                    .append(lineItem.getPrice())
+                    .append(TABS)
+                    .append(lineItem.getQuantity())
+                    .append(TABS)
+                    .append(lineItem.totalAmount())
+                    .append(LINE_BREAK);
+        }
+        return result.toString();
     }
 }
