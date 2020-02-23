@@ -2,12 +2,12 @@ package cc.xpbootcamp.warmup.cashier;
 
 import cc.xpbootcamp.warmup.cashier.core.OrderReceiptPlus;
 import cc.xpbootcamp.warmup.cashier.model.Discount;
-import cc.xpbootcamp.warmup.cashier.model.LineItem;
+import cc.xpbootcamp.warmup.cashier.model.ProductItem;
 import cc.xpbootcamp.warmup.cashier.model.Order;
-import cc.xpbootcamp.warmup.cashier.utils.DataUtil;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,11 +20,12 @@ public class OrderReceiptPlusTest {
     @Test
     public void shouldPrintCustomerInformationOnOrderNoDiscount() {
 
-        List<LineItem> lineItems = new ArrayList<LineItem>() {{
-            add(new LineItem("巧克力", 21.5, 2));
-            add(new LineItem("小白菜", 10.0, 1));
+        List<ProductItem> lineItems = new ArrayList<ProductItem>() {{
+            add(new ProductItem("巧克力", 21.5, 2));
+            add(new ProductItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtil.strToDate("2020年02月17日"), lineItems);
+        LocalDate localDate = LocalDate.of(2020, 2, 17);
+        Order order = new Order(localDate, lineItems);
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 
         String output = receipt.printReceipt();
@@ -39,11 +40,12 @@ public class OrderReceiptPlusTest {
     @Test
     public void shouldPrintCustomerInformationOnOrderDiscount() {
 
-        List<LineItem> lineItems = new ArrayList<LineItem>() {{
-            add(new LineItem("巧克力", 21.5, 2));
-            add(new LineItem("小白菜", 10.0, 1));
+        List<ProductItem> lineItems = new ArrayList<ProductItem>() {{
+            add(new ProductItem("巧克力", 21.5, 2));
+            add(new ProductItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtil.strToDate("2020年02月19日"), lineItems)
+        LocalDate localDate = LocalDate.of(2020, 2, 19);
+        Order order = new Order(localDate, lineItems)
                 .discount(new Discount(WEDNESDAY, new BigDecimal("0.98")));
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 
@@ -61,11 +63,12 @@ public class OrderReceiptPlusTest {
 
     @Test
     public void shouldPrintCustomerInformationOnOrderDiscountNoAmount() {
-        List<LineItem> lineItems = new ArrayList<LineItem>() {{
-            add(new LineItem("巧克力", 21.5, 2));
-            add(new LineItem("小白菜", 10.0, 1));
+        List<ProductItem> lineItems = new ArrayList<ProductItem>() {{
+            add(new ProductItem("巧克力", 21.5, 2));
+            add(new ProductItem("小白菜", 10.0, 1));
         }};
-        Order order = new Order(DataUtil.strToDate("2020年02月19日"), lineItems)
+        LocalDate localDate = LocalDate.of(2020, 2, 19);
+        Order order = new Order(localDate, lineItems)
                 .discount(new Discount(WEDNESDAY, new BigDecimal("1.00")));
         OrderReceiptPlus receipt = new OrderReceiptPlus(order);
 

@@ -1,7 +1,7 @@
 package cc.xpbootcamp.warmup.cashier;
 
 import cc.xpbootcamp.warmup.cashier.core.OrderReceipt;
-import cc.xpbootcamp.warmup.cashier.model.LineItem;
+import cc.xpbootcamp.warmup.cashier.model.ProductItem;
 import cc.xpbootcamp.warmup.cashier.model.Order;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.containsString;
 class OrderReceiptTest {
     @Test
     void shouldPrintCustomerInformationOnOrder() {
-        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<LineItem>());
+        Order order = new Order("Mr X", "Chicago, 60601", new ArrayList<ProductItem>());
         OrderReceipt receipt = new OrderReceipt(order);
 
         String output = receipt.printReceipt();
@@ -25,10 +25,10 @@ class OrderReceiptTest {
 
     @Test
     public void shouldPrintLineItemAndSalesTaxInformation() {
-        List<LineItem> lineItems = new ArrayList<LineItem>() {{
-            add(new LineItem("milk", 10.0, 2));
-            add(new LineItem("biscuits", 5.0, 5));
-            add(new LineItem("chocolate", 20.0, 1));
+        List<ProductItem> lineItems = new ArrayList<ProductItem>() {{
+            add(new ProductItem("milk", 10.0, 2));
+            add(new ProductItem("biscuits", 5.0, 5));
+            add(new ProductItem("chocolate", 20.0, 1));
         }};
         OrderReceipt receipt = new OrderReceipt(new Order(null, null, lineItems));
 

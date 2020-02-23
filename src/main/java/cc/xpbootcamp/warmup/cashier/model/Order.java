@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TABS;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.ZERO;
 
 
@@ -14,7 +12,7 @@ public class Order {
     private String customerName;
     private String customerAddress;
     private LocalDate localDate;
-    private List<LineItem> lineItemList;
+    private List<ProductItem> lineItemList;
 
     private Discount discount;
 
@@ -22,19 +20,15 @@ public class Order {
     private BigDecimal totalAmount;
     private BigDecimal discountAmount;
 
-    public Order(List<LineItem> lineItemList) {
-        this(LocalDate.now(), lineItemList);
-    }
-
-    public Order(LocalDate localDate, List<LineItem> lineItemList) {
+    public Order(LocalDate localDate, List<ProductItem> lineItemList) {
         this(localDate, null, null, lineItemList);
     }
 
-    public Order(String customerName, String customerAddress, List<LineItem> lineItemList) {
+    public Order(String customerName, String customerAddress, List<ProductItem> lineItemList) {
         this(LocalDate.now(), customerName, customerAddress, lineItemList);
     }
 
-    public Order(LocalDate localDate, String customerName, String customerAddress, List<LineItem> lineItemList) {
+    public Order(LocalDate localDate, String customerName, String customerAddress, List<ProductItem> lineItemList) {
         this.localDate = localDate;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
@@ -52,13 +46,18 @@ public class Order {
     }
 
     public void discountCalculate() {
-        if (Objects.nonNull(discount) && discount.hasDiscount(localDate)) {
+        if (hasDiscount()) {
             this.discountAmount = discount.discountAmount(localDate, totalAmount);
         }
     }
 
-    private void calculateOrderAmount(List<LineItem> lineItemList) {
-        for (LineItem item : lineItemList) {
+    public boolean hasDiscount(){
+        return Objects.nonNull(discount) && discount.isDiscount(localDate);
+    }
+
+
+    private void calculateOrderAmount(List<ProductItem> lineItemList) {
+        for (ProductItem item : lineItemList) {
             this.totalAmount = this.totalAmount.add(item.totalAmount());
         }
         // calculate sales tax @ rate of 10%
@@ -75,7 +74,7 @@ public class Order {
         return customerAddress;
     }
 
-    public List<LineItem> getLineItems() {
+    public List<ProductItem> getLineItems() {
         return lineItemList;
     }
 
@@ -86,10 +85,6 @@ public class Order {
     public BigDecimal getTotalAmount() {
         return Objects.isNull(this.discountAmount) ? this.totalAmount : this.totalAmount.subtract(this.discountAmount);
     }
-
-
-
-
 
     public LocalDate getLocalDate() {
         return localDate;

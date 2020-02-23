@@ -12,6 +12,9 @@ public class SpecialCharacter {
     public static final String LONG_LINE = "-------------------------";
 
 
+    public static final String dataFormat = "yyyy年MM月dd日 E";
+
+
     // old
     public static final String TITLE = "Printing Orders";
     public static final String INVOICE = "======" + TITLE + "======";

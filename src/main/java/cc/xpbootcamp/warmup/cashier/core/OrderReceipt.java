@@ -1,7 +1,7 @@
 package cc.xpbootcamp.warmup.cashier.core;
 
 
-import cc.xpbootcamp.warmup.cashier.model.LineItem;
+import cc.xpbootcamp.warmup.cashier.model.ProductItem;
 import cc.xpbootcamp.warmup.cashier.model.Order;
 
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.INVOICE;
@@ -39,7 +39,7 @@ public class OrderReceipt {
 
     public String generateItemDetail() {
         StringBuilder result = new StringBuilder();
-        for (LineItem lineItem : order.getLineItems()) {
+        for (ProductItem lineItem : order.getLineItems()) {
             result.append(lineItem.getDescription())
                     .append(TABS)
                     .append(lineItem.getPrice())
