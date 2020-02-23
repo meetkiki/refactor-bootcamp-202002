@@ -6,13 +6,10 @@ import cc.xpbootcamp.warmup.cashier.model.Order;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COLON;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COMMA;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.DISCOUNT_TAX_CN;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.INVOICE_CN;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LONG_LINE;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX_CN;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT_CN;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.dataFormat;
 
 /**
@@ -22,6 +19,12 @@ import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.dataFormat;
  * total sales tax) and prints it.
  */
 public class OrderReceiptPlus {
+
+    private static final String TITLE_CN = "老王超市，值得信赖";
+    private static final String INVOICE_CN = "======" + TITLE_CN + "======";
+    private static final String SALES_TAX_CN = "税额" + COLON;
+    private static final String TOTAL_AMOUNT_CN = "总价" + COLON;
+    private static final String DISCOUNT_TAX_CN = "折扣" + COLON;
 
     private Order order;
 

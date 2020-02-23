@@ -4,11 +4,8 @@ package cc.xpbootcamp.warmup.cashier.core;
 import cc.xpbootcamp.warmup.cashier.model.ProductItem;
 import cc.xpbootcamp.warmup.cashier.model.Order;
 
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.INVOICE;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SALES_TAX;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TABS;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUNT;
 
 /**
  * OrderReceipt prints the details of order including customer name, address, description, quantity,
@@ -17,6 +14,12 @@ import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.TOTAL_AMOUN
  * total sales tax) and prints it.
  */
 public class OrderReceipt {
+
+
+    private static final String TITLE = "Printing Orders";
+    private static final String INVOICE = "======" + TITLE + "======";
+    private static final String SALES_TAX = "Sales Tax" + TABS;
+    private static final String TOTAL_AMOUNT = "Total Amount" + TABS;
 
     private Order order;
 
