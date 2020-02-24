@@ -2,11 +2,6 @@ package cc.xpbootcamp.warmup.cashier.model;
 
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COMMA;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.MULTIPLY;
-import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SPACE;
 
 public class ProductItem {
 	private String description;
@@ -34,14 +29,5 @@ public class ProductItem {
 	public BigDecimal totalAmount() {
         return price.multiply(new BigDecimal(quantity));
     }
-
-    public String generateItemLine(){
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(price.setScale(2, RoundingMode.HALF_UP))
-				.append(SPACE).append(MULTIPLY).append(SPACE)
-				.append(quantity).append(COMMA)
-				.append(totalAmount().setScale(2, RoundingMode.HALF_UP));
-		return stringBuilder.toString();
-	}
 
 }

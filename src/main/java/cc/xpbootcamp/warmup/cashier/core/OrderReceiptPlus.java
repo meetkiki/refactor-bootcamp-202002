@@ -2,7 +2,9 @@ package cc.xpbootcamp.warmup.cashier.core;
 
 
 import cc.xpbootcamp.warmup.cashier.model.Order;
+import cc.xpbootcamp.warmup.cashier.model.ProductItem;
 
+import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -10,6 +12,8 @@ import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COLON;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.COMMA;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LINE_BREAK;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.LONG_LINE;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.MULTIPLY;
+import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.SPACE;
 import static cc.xpbootcamp.warmup.cashier.constant.SpecialCharacter.dataFormat;
 
 /**
@@ -61,7 +65,7 @@ public class OrderReceiptPlus {
     public String generateItemDetailPlus() {
         StringBuilder result = new StringBuilder();
         order.getLineItems().forEach(item -> result.append(item.getDescription()).append(COMMA)
-                .append(item.generateItemLine())
+                .append(generateItemLine(item))
                 .append(LINE_BREAK));
         return result.toString();
     }
@@ -78,5 +82,15 @@ public class OrderReceiptPlus {
         // print total amounts
         result.append(TOTAL_AMOUNT_CN).append(order.getTotalAmount()).append(LINE_BREAK);
         return result.toString();
+    }
+
+
+    public String generateItemLine(ProductItem item){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(item.getPrice().setScale(2, RoundingMode.HALF_UP))
+                .append(SPACE).append(MULTIPLY).append(SPACE)
+                .append(item.getQuantity()).append(COMMA)
+                .append(item.totalAmount().setScale(2, RoundingMode.HALF_UP));
+        return stringBuilder.toString();
     }
 }
